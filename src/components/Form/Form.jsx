@@ -1,23 +1,26 @@
 import React, { useState } from "react"
 import Header from "../Header/header";
 import uuid from 'react-uuid';
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/Products/productsSlice";
 
-const Form = ({setTable}) => {
+const Form = () => {
 
-  const formProduct = {
-    productId: uuid(),
-    productName: "",
-    productCategory: "",
-    imageOfProduct: "",
-    productFreshness: "",
-    additionalDescription: "",
-    productPrice: ""
-  }
+  const dispatch = useDispatch() 
+
+  const [product, setProduct] = useState({
+        productId: "",
+        productName: "",
+        productCategory: "",
+        imageOfProduct: "",
+        productFreshness: "",
+        additionalDescription: "",
+        productPrice: "",
+    })
 
   const notEmptyRegex = /([^\s])/;
   const lessThan10Regex = /^.{11,}$/;
 
-  const [product, setProduct] = useState(formProduct)
   const [errorProductName, seterrorProductName] = useState ('');
   const [errorProductCategory, seterrorProductCategory] = useState ('');
   const [errorImageOfProduct, seterrorImageOfProduct] = useState ('');
@@ -111,10 +114,17 @@ const Form = ({setTable}) => {
     if(notEmptyRegex.test(product.productName) && notEmptyRegex.test(product.productCategory)
     && notEmptyRegex.test(product.imageOfProduct) && notEmptyRegex.test(product.productFreshness)
     && notEmptyRegex.test(product.additionalDescription) && notEmptyRegex.test(product.productPrice)){
-      setTable((prev) => ([...prev, product]))
-      setProduct(prev => ({...prev, productId: uuid()}))
+      const newData = {
+        productId: uuid(),
+        productName: product.productName,
+        productCategory: product.productCategory,
+        imageOfProduct: product.imageOfProduct,
+        productFreshness: product.productFreshness,
+        additionalDescription: product.additionalDescription,
+        productPrice: product.productPrice,
+      }
+      dispatch(addProduct(newData))
     }
-    console.log(notEmptyRegex.test(product.productName))
   }
 
   const validProductName = !errorProductName ? null : 'is-invalid';
