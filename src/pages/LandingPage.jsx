@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import gambar from '/src/assets/images/hero-img.png'
 import './style.css'
 
@@ -59,9 +60,13 @@ const LandingPage = () => {
                         </a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link active text-primary" href="/CreateProduct">
+                            <NavLink to="/CreateProduct"
+                                className={({ isActive, isPending }) =>
+                                    isPending ? "pending" : isActive ? "active" : ""
+                                }
+                            >
                             Create Product
-                        </a>
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
