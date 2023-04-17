@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Header from "../Header/header";
+import Header from "../Header/Header";
 import uuid from 'react-uuid';
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/Products/productsSlice";
